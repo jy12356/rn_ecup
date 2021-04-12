@@ -1,4 +1,4 @@
-0. IOS SET UP
+0. IOS 세팅
 >  Always excute pod install in ios folder
 >  $ sudo brew install watchman
 >  $ sudo gem install cocoapods
@@ -8,11 +8,11 @@
 >  $ npx pod-install ios
 
 
-1. # Create Recat Native app with npx
+1. # React Native 앱 세팅 0.63 버전 사용!
 
->  $ npx react-native init <projectName> --version x.xx.x
+>  $ npx react-native init <projectName> --version 0.63.0
 
-2. # Adding WebView module
+2. # WebView module 
 
 >  $ npm install --save react-native-webview
 > //Adding permission for dev
@@ -22,10 +22,10 @@
 >   <true/>
 >   </dict>
 
-3. # Adding Navigation
+3. # Navigation Module
 
 >  $ npm install --save @react-navigation/native
-> //Install dependencies
+> //Dependencies 설치 필수!
 >  $ npm install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
 >  $ npm install --save @react-navigation/stack
 >  const Stack = createStackNavigator();
@@ -40,7 +40,8 @@
 >  Adding classpath 'com.google.gms:google-services:4.3.4'
 >  Adding google-services.json  Inside of the app folder
 
-> ## For IOS 
+> ## For IOS
+> ### 파이어베이스 콘솔 > 프로젝트 설정 > 클라우드 메세징 > IOS 앱구성 > APN 인증 키 등록
 >  See a References from https://rnfirebase.io
 
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect } from 'react';
 import { WebView } from 'react-native-webview';
 
 
@@ -6,12 +6,22 @@ function WebviewScreen({ route, navigation}){
     const { qrData } = route.params;
     let myWebview = null;
     
+    useEffect(() => {
+      const unsubscribe = navigation.addListener('focus', (e) => {
+        myWebview.postMessage(qrData)
+      });
+    
+      return unsubscribe;
+    }, [navigation]);
+
+
     const jsCode = `
     var data = {targetFunc : "none", status : "connected!"};
     var dataConverted = JSON.stringify(data)
     window.ReactNativeWebView.postMessage(dataConverted);
     `;
     return (
+
         <WebView
           ref = {(wref)=>{myWebview = wref }}
           source={{ uri: 'https://ecup.mvpick.net' }}

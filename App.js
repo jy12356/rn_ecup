@@ -73,7 +73,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name={"WebView"} component={WebviewScreen} />
+        <Stack.Screen name={"WebView"} component={WebviewScreen} initialParams={{ qrData: 0 }}/>
         <Stack.Screen name={"QRScan"} component={QRScanScreen} />
       </Stack.Navigator>
     </NavigationContainer>

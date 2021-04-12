@@ -2,7 +2,7 @@ import React  from 'react';
 import { CameraScreen } from 'react-native-camera-kit';
 import { View, Alert } from 'react-native';
 
-function QRScanScreen (){
+function QRScanScreen ({navigation}){
     return (
         <View style={{ flex: 1 }}>
         <CameraScreen
@@ -18,8 +18,9 @@ function QRScanScreen (){
           //Scanner Frame color
           onReadCode={event => {
             console.log(event.nativeEvent.codeStringValue)
-            Alert.alert('QR code found')
-            return
+            navigation.navigate('WebView', {
+              qrData: event.nativeEvent.codeStringValue,
+            });
           }
           }
         />

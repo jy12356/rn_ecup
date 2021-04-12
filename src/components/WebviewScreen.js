@@ -2,8 +2,8 @@ import React from 'react';
 import { WebView } from 'react-native-webview';
 
 
-function WebviewScreen({navigation}){
-
+function WebviewScreen({ route, navigation}){
+    const { qrData } = route.params;
     let myWebview = null;
     
     const jsCode = `
@@ -14,26 +14,23 @@ function WebviewScreen({navigation}){
     return (
         <WebView
           ref = {(wref)=>{myWebview = wref }}
-          source={{ uri: 'http://ffc.eventconnector.net/admin/recevied' }}
+          source={{ uri: 'https://ecup.mvpick.net' }}
           //inject javascript into the Web
           injectedJavaScript={jsCode}
           onMessage= {(e)=>{
             //getting data form Web
             console.log(e.nativeEvent.data)
-            // var data = JSON.parse(e.nativeEvent.data)
-            // if(data.targetFunc === 'camera'){
-            //   navigation.navigate('QRScanner');
-            // }
             if(e.nativeEvent.data){
               let data = JSON.parse(e.nativeEvent.data)
               if(data.targetFunc === 'camera'){
                 navigation.navigate('QRScan');
               }
             }
+            
           }}
           onLoadEnd= {()=>{
             //sending data to Web
-            myWebview.postMessage("Merong")
+            myWebview.postMessage(qrData)
           }}
         />
     );

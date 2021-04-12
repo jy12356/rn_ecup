@@ -3,6 +3,7 @@ import { CameraScreen } from 'react-native-camera-kit';
 import { View, Alert } from 'react-native';
 
 function QRScanScreen ({navigation}){
+  let isFirst = true;
     return (
         <View style={{ flex: 1 }}>
         <CameraScreen
@@ -17,7 +18,10 @@ function QRScanScreen ({navigation}){
           colorForScannerFrame='black'
           //Scanner Frame color
           onReadCode={event => {
+            if(!isFirst){return }
+            isFirst = false;
             console.log(event.nativeEvent.codeStringValue)
+            
             navigation.navigate('WebView', {
               qrData: event.nativeEvent.codeStringValue,
             });

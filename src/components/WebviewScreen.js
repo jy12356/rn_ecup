@@ -3,30 +3,33 @@ import { WebView } from 'react-native-webview';
 
 
 function WebviewScreen({ route, navigation}){
-    const { qrData } = route.params;
-    let myWebview = null;
     
     useEffect(() => {
       const unsubscribe = navigation.addListener('focus', (e) => {
-        myWebview.postMessage(qrData)
+        if(route.params?.qrData){
+          const { qrData } = route.params;
+          console.log(route.params)
+          console.log(qrData)
+          this.myWebview.postMessage(qrData)
+        }
       });
     
       return unsubscribe;
-    }, [navigation]);
+    }, [navigation,route.params?.qrData, this.myWebview]);
 
 
-    const jsCode = `
-    var data = {targetFunc : "none", status : "connected!"};
-    var dataConverted = JSON.stringify(data)
-    window.ReactNativeWebView.postMessage(dataConverted);
-    `;
+    // const jsCode = `
+    // var data = {targetFunc : "none", status : "connected!"};
+    // var dataConverted = JSON.stringify(data)
+    // window.ReactNativeWebView.postMessage(dataConverted);
+    // `;
     return (
 
         <WebView
-          ref = {(wref)=>{myWebview = wref }}
+          ref = {(wref)=>{this.myWebview = wref }}
           source={{ uri: 'https://ecup.mvpick.net' }}
           //inject javascript into the Web
-          injectedJavaScript={jsCode}
+          //injectedJavaScript={jsCode}
           onMessage= {(e)=>{
             //getting data form Web
             console.log(e.nativeEvent.data)
@@ -40,7 +43,7 @@ function WebviewScreen({ route, navigation}){
           }}
           onLoadEnd= {()=>{
             //sending data to Web
-            myWebview.postMessage(qrData)
+            myWebview.postMessage("Connected")
           }}
         />
     );
